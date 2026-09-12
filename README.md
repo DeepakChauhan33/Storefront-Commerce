@@ -1,1638 +1,531 @@
-Storefront-Commerce
+<div align="center">
+Storefront-Commerce — Full-Stack MERN E-Commerce Platform
+A production-style shopping app covering browsing, auth, cart, wishlist, checkout, and order history
+<br/> <img src="https://skillicons.dev/icons?i=react,vite,tailwind,nodejs,express,mongodb,redux,vercel&theme=dark" />
 
-A full-stack e-commerce web application built with React, Vite,
-Tailwind CSS, Node.js, Express, MongoDB, and JWT authentication.
+<br/><br/>
 
-The project provides a complete shopping flow for users: browsing
-products, viewing product details, registering and logging in, managing
-a cart, managing a wishlist, checking out, and viewing order history.
+<img src="https://img.shields.io/badge/status-deployed-2e7d32?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/frontend-React_19_%2B_Vite-646cff?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/backend-Express_5-000000?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/database-MongoDB_Atlas-47a248?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/auth-JWT-fbbf24?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/state-Redux_Toolkit-764abc?style=for-the-badge&labelColor=1a1a1a" /> </div> <br/>
 
-The application is organized as a single repository containing separate
-frontend and backend applications and is deployed independently:
+A visitor browses products, registers or logs in, builds a cart and a wishlist, checks out, and reviews their order history — all backed by a JWT-secured Express API and MongoDB, with the frontend and backend deployed and scaled independently.
 
-Frontend: Vercel
-
-Backend: Render
-
-Database: MongoDB Atlas
-
-Live Application
-
-Replace the frontend URL below with your actual Vercel deployment URL.
-
-Frontend: https://YOUR-VERCEL-APP.vercel.app
-
-Backend API: https://storefront-commerce.onrender.com
-
-Products API:
-https://storefront-commerce.onrender.com/product/products
-
+<br/>
 Table of Contents
-
-Project Overview
-
-Key Features
-
+What This Project Is
+Highlights
+System Architecture
 Application Flow
-
-Architecture
-
-Technology Stack
-
-Project Structure
-
-Frontend Architecture
-
-Backend Architecture
-
-Authentication
-
-Product Management
-
-Cart Management
-
-Wishlist Management
-
-Order Management
-
+Backend — Express API Service
+Frontend — React + Vite Application
+End-to-End User Flow
+Tech Stack
 Database Models
-
 API Documentation
-
+Getting the Project Running Locally
 Environment Variables
-
-Local Development Setup
-
-Running the Project
-
-Testing
-
-Production Deployment
-
-CORS Configuration
-
 Security Practices
-
-Common Deployment
-Considerations
-
+Common Deployment Considerations
+Live Demo Links
+Known Limitations
 Future Improvements
-
 Learning Outcomes
-
 Author
+Project Status
+<br/>
+What This Project Is
 
-Project Overview
+Storefront-Commerce is a MERN-style e-commerce application built to demonstrate a complete, production-shaped full-stack workflow. A user can:
 
-Storefront-Commerce is a MERN-style e-commerce application designed
-to demonstrate a complete full-stack development workflow.
+Step	What happens
+1	Browse the product catalog and open individual product detail pages
+2	Register or log in through a JWT-secured auth flow
+3	Add products to a personal cart, adjust quantities, or remove items
+4	Save products to a wishlist for later
+5	Check out, which validates stock and creates an order
+6	Review past orders from an order-history page
 
-The project started with a frontend shopping experience and was extended
-with a custom Express/MongoDB backend. Product data, users, carts,
-wishlists, and orders are handled through backend APIs and persisted in
-MongoDB.
+The project started as a frontend shopping experience and was extended with a custom Express + MongoDB backend. Product, user, cart, wishlist, and order data are all persisted server-side and scoped to the authenticated user — nothing sensitive lives only in the browser.
 
-The frontend communicates with the backend using:
+<br/>
+Highlights
+<table> <tr> <td width="33%" valign="top">
 
-Axios for authentication and order service requests
+Full shopping lifecycle
 
-Redux Toolkit Query (RTK Query) for product, cart, and wishlist
-API communication
+Browse → product detail → cart → wishlist → checkout → order history, all wired to a real backend rather than mock data.
 
-Redux Toolkit for application state such as authentication and
-order history
+</td> <td width="33%" valign="top">
 
-The backend exposes REST-style endpoints and protects user-specific
-resources with JWT authentication.
+JWT authentication
 
-Main user journey
+Passwords hashed with bcryptjs, sessions backed by a 7-day JWT, and every cart/wishlist/order route scoped to req.user.userId.
 
-Browse Products
-      ↓
-View Product Details
-      ↓
-Register / Login
-      ↓
-Add Products to Cart
-      ↓
-Update Quantity / Remove Items
-      ↓
-Manage Wishlist
-      ↓
-Checkout
-      ↓
-Create Order
-      ↓
-View Order History
+</td> <td width="33%" valign="top">
 
-Key Features
+Independent deployments
 
-Authentication
+One GitHub repository, two deployment targets: the React/Vite frontend ships to Vercel, the Express API ships to Render, both talking to MongoDB Atlas.
 
-User registration
+</td> </tr> </table> <br/>
+System Architecture
 
-User login
+The project is a single repository containing two independently deployed applications that communicate over a REST API.
 
-Password hashing with bcryptjs
-
-JWT-based authentication
-
-Protected API routes
-
-Current-user endpoint
-
-Seven-day JWT expiration
-
-Logout through frontend authentication state
-
-Product Features
-
-Product listing
-
-Product detail page
-
-Product categories
-
-Product search UI
-
-Product images
-
-Product pricing
-
-Product ratings
-
-Product stock information
-
-Product API integration
-
-Shopping Cart
-
-Add product to cart
-
-Prevent adding unavailable products
-
-Prevent increasing quantity beyond available stock
-
-Update product quantity
-
-Remove individual products
-
-Clear entire cart
-
-Cart persistence through MongoDB
-
-User-specific carts
-
-Cart data populated with product information
-
-Wishlist
-
-Add products to wishlist
-
-Prevent duplicate wishlist entries
-
-View wishlist
-
-Remove individual wishlist products
-
-Clear wishlist
-
-User-specific wishlist
-
-Orders
-
-Create an order from cart items
-
-Validate products before creating an order
-
-Validate requested quantity
-
-Validate available stock
-
-Add delivery charge
-
-Store order history per user
-
-Display previous orders
-
-UI / UX
-
-Responsive React interface
-
-Tailwind CSS styling
-
-Responsive navigation
-
-Mobile bottom navigation
-
-Product cards
-
-Loading states
-
-Error page
-
-Toast notifications
-
-Quantity controls
-
-Scroll-to-top behavior
-
-Product category UI
-
-Animated UI elements using Framer Motion
-
-Development
-
-Vite development environment
-
-ESLint configuration
-
-Vitest test setup
-
-React Testing Library
-
-Environment-based API URL configuration
-
-Separate frontend and backend deployment
-
+deploys
+deploys
+HTTPS / REST
+Mongoose ODM
+MongoDB Atlas
+Users · ProductsCarts · Wishlists · Orders
+Backend — Render
+Express 5 REST API
+JWT Auth Middleware
+Frontend — Vercel
+React 19 + Vite
+Redux Toolkit+ RTK Query + Axios
+GitHubStorefront-Commerce(monorepo)
+Layer	Responsibility
+Frontend	React 19 SPA (Vite) — product browsing, auth screens, cart, wishlist, checkout, and order history, styled with Tailwind CSS.
+Backend	Express 5 REST API — issues and verifies JWTs, enforces per-user data isolation, and runs all cart/wishlist/order business logic.
+Database	MongoDB Atlas — five collections (User, Product, Cart, Wishlist, Order) accessed through Mongoose models.
+<br/>
 Application Flow
+Registration & Login
+MongoDB
+Auth Middleware
+Express API
+React Frontend
+User
+MongoDB
+Auth Middleware
+Express API
+React Frontend
+User
+Submit registration form
+1
+POST /user/register { name, email, password }
+2
+bcrypt.hash(password)
+3
+Save new user
+4
+user created
+5
+201 Created
+6
+Submit login form
+7
+POST /user/login { email, password }
+8
+Find user by email
+9
+user document
+10
+bcrypt.compare(password, hash)
+11
+sign JWT (7-day expiry)
+12
+{ token, user }
+13
+Store token in auth state
+14
+Request a protected resource
+15
+GET /cart (Authorization: Bearer token)
+16
+verify JWT
+17
+attach req.user.userId
+18
+fetch cart scoped to userId
+19
+cart document
+20
+cart JSON
+21
+Stage	Module	Responsibility
+Registration	controllers/authController.js	Hashes the incoming password with bcryptjs before creating the User document.
+Login	controllers/authController.js	Verifies credentials with bcrypt.compare, then signs a JWT valid for seven days.
+Auth middleware	middleware/auth.js, middleware/authMiddleware.js	Verifies the Authorization: Bearer <token> header on every protected route and attaches req.user.userId.
+Current user	GET /user/me	Returns the authenticated user's profile, using the token rather than a client-supplied ID.
 
-1. User Registration
+Every cart, wishlist, and order route reads req.user.userId from the verified token — never from a client-supplied field — so one user can never read or modify another user's data.
 
-The user submits:
-
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "password"
-}
-
-The backend hashes the password using bcryptjs before storing the
-user.
-
-Frontend
-   ↓
-POST /user/register
-   ↓
-Express Controller
-   ↓
-bcrypt password hashing
-   ↓
-MongoDB User collection
-
-2. User Login
-
-The user submits email and password.
-
-The backend:
-
-Finds the user by email.
-
-Compares the submitted password with the hashed password.
-
-Creates a JWT if the credentials are valid.
-
-Returns the token and basic user information.
-
-Frontend
-   ↓
-POST /user/login
-   ↓
-Validate credentials
-   ↓
-bcrypt.compare()
-   ↓
-JWT creation
-   ↓
-Token returned to frontend
-
-3. Authenticated Requests
-
-For protected APIs, the frontend sends:
-
-Authorization: Bearer <JWT_TOKEN>
-
-The authentication middleware verifies the token and attaches the user
-ID to:
-
-req.user.userId
-
-This allows the backend to retrieve only the authenticated user's cart,
-wishlist, and orders.
-
-4. Cart and Checkout
-
-Product
-   ↓
+<br/>
+Cart & Checkout
+No
+Yes
+Product page
 Add to Cart
-   ↓
+In stock &within limit?
+Blocked client-side
 MongoDB Cart
-   ↓
 Cart Page
-   ↓
 Checkout
-   ↓
-Create Order
-   ↓
+Validate products,quantity & stock
+Create Order+ fixed delivery charge
 MongoDB Order
-   ↓
 Clear Cart
-   ↓
 Order History
 
-The current order implementation validates product existence and stock
-before creating the order. It does not decrement product stock after
-checkout.
+The current order implementation validates product existence, requested quantity, and available stock before creating the order — it does not decrement product stock after checkout (see Known Limitations).
 
-Architecture
+<br/>
+Backend — Express API Service
 
-                         ┌───────────────────────┐
-                         │       GitHub           │
-                         │ Storefront-Commerce    │
-                         └───────────┬───────────┘
-                                     │
-                    ┌────────────────┴────────────────┐
-                    │                                 │
-                    ▼                                 ▼
-          ┌──────────────────┐              ┌──────────────────┐
-          │ Vercel           │              │ Render           │
-          │ React + Vite     │              │ Node + Express   │
-          └────────┬─────────┘              └────────┬─────────┘
-                   │                                  │
-                   │ HTTP / REST API                  │
-                   └─────────────────────────────────►
-                                                      │
-                                                      ▼
-                                             ┌──────────────────┐
-                                             │ MongoDB Atlas     │
-                                             │                  │
-                                             │ Users             │
-                                             │ Products          │
-                                             │ Carts             │
-                                             │ Wishlists         │
-                                             │ Orders            │
-                                             └──────────────────┘
+Location: Backend/
 
-Technology Stack
-
-Frontend
-
-Technology              Purpose
-
-React 19                UI development
-Vite                    Development server and production build
-Tailwind CSS            Styling
-Redux Toolkit           Application state
-RTK Query               API data fetching and caching
-Axios                   HTTP requests
-React Router            Client-side routing
-React Hot Toast         Notifications
-Framer Motion           UI animations
-React Icons             Icons
-Vitest                  Testing
-React Testing Library   Component testing
-
-Backend
-
-Technology      Purpose
-
-Node.js         JavaScript runtime
-Express 5       REST API framework
-MongoDB         Database
-Mongoose        MongoDB ODM
-JWT             Authentication
-bcryptjs        Password hashing
-CORS            Cross-origin communication
-Cookie Parser   Cookie parsing
-dotenv          Environment configuration
-
-Deployment
-
-Service         Responsibility
-
-GitHub          Source code repository
-Vercel          React/Vite frontend
-Render          Express backend
-MongoDB Atlas   Cloud database
-
-Project Structure
-
-Storefront-Commerce/
+<details> <summary><b>Backend folder structure</b></summary>
+Backend/
+├── .gitignore
+├── package.json
+├── package-lock.json
 │
-├── Backend/
-│   ├── .gitignore
-│   ├── package.json
-│   ├── package-lock.json
-│   │
-│   ├── config/
-│   │   └── db.js
-│   │
-│   └── src/
-│       ├── controllers/
-│       │   ├── authController.js
-│       │   ├── cartController.js
-│       │   ├── orderController.js
-│       │   ├── productController.js
-│       │   └── wishlistController.js
-│       │
-│       ├── middleware/
-│       │   ├── auth.js
-│       │   └── authMiddleware.js
-│       │
-│       ├── models/
-│       │   ├── cart.js
-│       │   ├── orders.js
-│       │   ├── product.js
-│       │   ├── user.js
-│       │   └── wishlist.js
-│       │
-│       ├── routes/
-│       │   ├── authRoute.js
-│       │   ├── cartRoute.js
-│       │   ├── orderRoute.js
-│       │   ├── productRoutes.js
-│       │   └── wishlistRoute.js
-│       │
-│       └── server.js
+├── config/
+│   └── db.js                     # MongoDB connection setup
 │
-├── Client/
-│   └── my-project/
-│       ├── .gitignore
-│       ├── package.json
-│       ├── package-lock.json
-│       ├── index.html
-│       ├── vite.config.js
-│       │
-│       ├── public/
-│       │
-│       └── src/
-│           ├── Components/
-│           │   ├── BottomNavbar.jsx
-│           │   ├── ButtonComp.jsx
-│           │   ├── Footer.jsx
-│           │   ├── Loader.jsx
-│           │   ├── Navbar.jsx
-│           │   ├── ProductCard.jsx
-│           │   ├── QuantityBtn.jsx
-│           │   ├── ScrollTop.jsx
-│           │   └── WishlistBtn.jsx
-│           │
-│           ├── Images/
-│           │
-│           ├── Layout/
-│           │   └── Layout.jsx
-│           │
-│           ├── Pages/
-│           │   ├── Cart/
-│           │   │   ├── CartBill.jsx
-│           │   │   ├── CartPage.jsx
-│           │   │   ├── CartSlice.js
-│           │   │   └── cartAPI.js
-│           │   │
-│           │   ├── ErrorPage/
-│           │   │   └── ErrorPage.jsx
-│           │   │
-│           │   ├── Home/
-│           │   │   ├── CategoryCard.jsx
-│           │   │   └── Home.jsx
-│           │   │
-│           │   ├── Login/
-│           │   │   ├── LoginForm.jsx
-│           │   │   ├── LoginPage.jsx
-│           │   │   ├── RegisterForm.jsx
-│           │   │   ├── SigninForm.jsx
-│           │   │   ├── UserPage.jsx
-│           │   │   ├── authService.js
-│           │   │   └── authSlice.js
-│           │   │
-│           │   ├── Order/
-│           │   │   ├── OrderPage.jsx
-│           │   │   ├── orderService.js
-│           │   │   └── orderSlice.js
-│           │   │
-│           │   ├── Product/
-│           │   │   ├── CategoryAccordion.jsx
-│           │   │   ├── ProductApi.js
-│           │   │   └── Products.jsx
-│           │   │
-│           │   ├── ProductPage/
-│           │   │   └── ProductPage.jsx
-│           │   │
-│           │   ├── Search/
-│           │   │   └── Search.jsx
-│           │   │
-│           │   └── Wishlist/
-│           │       ├── Wishlist.jsx
-│           │       ├── WishlistSlice.js
-│           │       └── wishlistAPI.js
-│           │
-│           ├── Store/
-│           │   └── Store.js
-│           │
-│           ├── Utils/
-│           │   └── localStorage.js
-│           │
-│           ├── __test__/
-│           │   ├── form.test.jsx
-│           │   ├── quantityBtn.test.js
-│           │   └── setup.js
-│           │
-│           ├── App.jsx
-│           ├── index.css
-│           └── main.jsx
-│
-└── README.md
-
-Frontend Architecture
-
-The frontend follows a feature/page-oriented structure.
-
-Components
-
-Reusable UI components are stored in:
-
-src/Components/
-
-Examples include:
-
-Navbar
-
-Footer
-
-ProductCard
-
-QuantityBtn
-
-WishlistBtn
-
-Loader
-
-ButtonComp
-
-Pages
-
-Application screens are organized under:
-
-src/Pages/
-
-Main areas include:
-
-Home
-
-Login
-
-Products
-
-Product Details
-
-Cart
-
-Wishlist
-
-Orders
-
-Search
-
-Error Page
-
-State Management
-
-Redux Toolkit is used for global application state.
-
-The project also uses RTK Query for server-side API data.
-
-Redux Store
-│
-├── Authentication state
-├── Order state
-├── Product API
-├── Cart API
-└── Wishlist API
-
-API Communication
-
-The frontend uses:
-
-import.meta.env.VITE_API_URL
-
-as the production API base URL.
-
-This avoids hardcoding the deployed backend URL throughout the
-application.
-
-Backend Architecture
-
-The backend follows a controller-route-model structure.
-
+└── src/
+    ├── controllers/
+    │   ├── authController.js       # Register, login, current user
+    │   ├── cartController.js       # Add/update/remove/clear cart
+    │   ├── orderController.js      # Create order, order history
+    │   ├── productController.js    # List/create/fetch products
+    │   └── wishlistController.js   # Add/remove/clear wishlist
+    │
+    ├── middleware/
+    │   ├── auth.js                  # JWT verification
+    │   └── authMiddleware.js        # Route-level auth guard
+    │
+    ├── models/
+    │   ├── cart.js
+    │   ├── orders.js
+    │   ├── product.js
+    │   ├── user.js
+    │   └── wishlist.js
+    │
+    ├── routes/
+    │   ├── authRoute.js
+    │   ├── cartRoute.js
+    │   ├── orderRoute.js
+    │   ├── productRoutes.js
+    │   └── wishlistRoute.js
+    │
+    └── server.js                    # Express app entry point
+</details>
+Request Lifecycle
 Request
-   ↓
 Express Route
-   ↓
-Authentication Middleware (when required)
-   ↓
+Auth Middleware(when required)
 Controller
-   ↓
 Mongoose Model
-   ↓
 MongoDB
-   ↓
 JSON Response
 
-Routes
-
-Routes are grouped by domain:
-
-/user
-/product
-/cart
-/wishlist
-/order
-
-Controllers
-
-Controllers contain request handling and business logic.
-
-controllers/
-├── authController.js
-├── cartController.js
-├── orderController.js
-├── productController.js
-└── wishlistController.js
-
-Models
-
-Mongoose models represent database collections:
-
-models/
-├── User
-├── Product
-├── Cart
-├── Wishlist
-└── Order
-
-Authentication
-
-Authentication is implemented using:
-
-bcryptjs
-
-jsonwebtoken
-
-Express middleware
-
-Registration
-
-POST /user/register
-
-Request:
-
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "password123"
-}
-
-The password is hashed before it is stored.
-
-Login
-
-POST /user/login
-
-Response contains:
-
-{
-  "message": "login successful",
-  "token": "JWT_TOKEN",
-  "user": {
-    "id": "USER_ID",
-    "name": "John Doe",
-    "email": "john@example.com"
-  }
-}
-
-The JWT expires after seven days.
-
-Current User
-
-GET /user/me
-
-Requires:
-
-Authorization: Bearer <token>
-
-Product Management
-
-Products are stored in MongoDB and exposed through the product API.
-
-Product fields
-
-title
-price
-description
-category
-stock
-image
-rating.rate
-rating.count
-
-Get all products
-
-GET /product/products
-
-Production endpoint:
-
-https://storefront-commerce.onrender.com/product/products
-
-Get product by ID
-
-GET /product/product/:id
-
-Product creation
-
-POST /product/addProduct
-
-The current backend route is available for product creation and is not
-protected by the authentication middleware.
-
-Cart Management
-
-Each authenticated user has a unique cart.
-
-The cart stores:
-
-user
-items[]
-    product
-    quantity
-    price
-
-Get Cart
-
-GET /cart
-
-Authentication required.
-
-Add to Cart
-
-POST /cart/add
-
-Request:
-
-{
-  "productId": "PRODUCT_ID"
-}
-
-The backend checks:
-
-Product ID exists
-
-Product exists
-
-Product is in stock
-
-Requested quantity does not exceed available stock when increasing
-an existing cart item
-
-Update Quantity
-
-PUT /cart/update
-
-Request:
-
-{
-  "productId": "PRODUCT_ID",
-  "quantity": 2
-}
-
-Quantity must be an integer greater than or equal to 1.
-
-Remove Product
-
-DELETE /cart/remove/:productId
-
-Clear Cart
-
-DELETE /cart/clear
-
-All cart endpoints require authentication.
-
-Wishlist Management
-
-Wishlist data is associated with the authenticated user.
-
-Get Wishlist
-
-GET /wishlist
-
+Routes are grouped by domain: /user, /product, /cart, /wishlist, /order.
+
+<br/>
+Frontend — React + Vite Application
+
+Location: Client/my-project/
+
+<details> <summary><b>Frontend folder structure</b></summary>
+Client/my-project/
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── index.html
+├── vite.config.js
+│
+├── public/
+│
+└── src/
+    ├── Components/
+    │   ├── BottomNavbar.jsx
+    │   ├── ButtonComp.jsx
+    │   ├── Footer.jsx
+    │   ├── Loader.jsx
+    │   ├── Navbar.jsx
+    │   ├── ProductCard.jsx
+    │   ├── QuantityBtn.jsx
+    │   ├── ScrollTop.jsx
+    │   └── WishlistBtn.jsx
+    │
+    ├── Layout/
+    │   └── Layout.jsx
+    │
+    ├── Pages/
+    │   ├── Cart/          # CartPage.jsx, CartBill.jsx, CartSlice.js, cartAPI.js
+    │   ├── ErrorPage/      # ErrorPage.jsx
+    │   ├── Home/            # Home.jsx, CategoryCard.jsx
+    │   ├── Login/            # LoginPage.jsx, LoginForm.jsx, RegisterForm.jsx, authSlice.js, authService.js
+    │   ├── Order/             # OrderPage.jsx, orderSlice.js, orderService.js
+    │   ├── Product/            # Products.jsx, CategoryAccordion.jsx, ProductApi.js
+    │   ├── ProductPage/         # ProductPage.jsx
+    │   ├── Search/               # Search.jsx
+    │   └── Wishlist/               # Wishlist.jsx, WishlistSlice.js, wishlistAPI.js
+    │
+    ├── Store/
+    │   └── Store.js                  # Redux store configuration
+    │
+    ├── Utils/
+    │   └── localStorage.js
+    │
+    ├── __test__/
+    │   ├── form.test.jsx
+    │   ├── quantityBtn.test.js
+    │   └── setup.js
+    │
+    ├── App.jsx
+    ├── index.css
+    └── main.jsx
+</details>
+Pages
+Area	Page(s)	Notes
+Home	Home.jsx, CategoryCard.jsx	Landing page, category browsing
+Product	Products.jsx, ProductPage.jsx	Catalog listing and product detail view
+Auth	LoginPage.jsx, RegisterForm.jsx, SigninForm.jsx, UserPage.jsx	Registration, login, and profile
+Cart	CartPage.jsx, CartBill.jsx	Cart contents and order summary
+Wishlist	Wishlist.jsx	Saved-for-later products
+Orders	OrderPage.jsx	Order history
+Search	Search.jsx	Client-side product search
+Error	ErrorPage.jsx	Fallback / 404 route
+State Management
+Redux Store
+Auth state(authSlice)
+Order state(orderSlice)
+Product API(RTK Query)
+Cart API(RTK Query)
+Wishlist API(RTK Query)
+Concern	Library
+Global state (auth, orders)	Redux Toolkit
+Server-state fetching/caching (products, cart, wishlist)	RTK Query
+Auth & order HTTP requests	Axios
+Client-side routing	React Router
+Notifications	React Hot Toast
+Animation	Framer Motion
+Icons	React Icons
+
+The frontend reads its API base URL from import.meta.env.VITE_API_URL, avoiding a hardcoded backend URL anywhere in the codebase.
+
+<br/>
+End-to-End User Flow
+No
+Yes
+Save for later
+Buy now
+User visits site
+Has account?
+RegisterPOST /user/register
+LoginPOST /user/login
+Browse Products
+Product Details
+What next?
 Add to Wishlist
-
-POST /wishlist
-
-Remove Wishlist Item
-
-DELETE /wishlist/:id
-
-Clear Wishlist
-
-DELETE /wishlist
-
-All wishlist endpoints require authentication.
-
-The wishlist stores product snapshot information such as:
-
-_id
-title
-price
-image
-category
-description
-
-Order Management
-
-Orders belong to the authenticated user.
-
-Create Order
-
-POST /order/createOrder
-
-Request structure:
-
-{
-  "products": [
-    {
-      "productId": "PRODUCT_ID",
-      "title": "Product Name",
-      "price": 100,
-      "quantity": 2
-    }
-  ]
-}
-
-The backend validates:
-
-Order contains at least one product
-
-Product ID exists
-
-Quantity is at least 1
-
-Product exists
-
-Requested quantity does not exceed current stock
-
-A fixed delivery charge of 50 is added to the calculated product
-total.
-
-The order stores a snapshot of:
-
-productId
-title
-price
-quantity
-
-Get Order History
-
-GET /order/orders
-
-Only the authenticated user's orders are returned.
-
-Current stock behavior
-
-The order creation process checks stock availability but does not
-currently decrement the product's stock after an order is created.
-
-This can be implemented as a future enhancement.
-
+Add to Cart
+Checkout
+Order Created
+Order History
+A new visitor registers, or a returning visitor logs in, through the Express /user routes.
+Once authenticated, the user browses the catalog and opens product detail pages.
+From a product page, the user can save it to their wishlist or add it straight to their cart.
+The cart page lets the user adjust quantities or remove items before checking out.
+Checkout re-validates product existence, quantity, and stock, then creates an order with a fixed delivery charge.
+The order appears in the user's order history, scoped entirely to their account.
+<br/>
+Tech Stack
+<div align="center">
+Layer	Technology
+Frontend framework	React 19 + Vite
+Frontend styling	Tailwind CSS
+Frontend state	Redux Toolkit + RTK Query
+Frontend HTTP	Axios (auth & orders)
+Routing	React Router
+Notifications / animation	React Hot Toast, Framer Motion
+Testing (frontend)	Vitest, React Testing Library
+Backend framework	Express 5 (Node.js)
+Database	MongoDB (Mongoose ODM)
+Authentication	JWT (jsonwebtoken) + bcryptjs
+Cross-origin handling	CORS, Cookie Parser
+Config	dotenv
+Deployment (frontend)	Vercel
+Deployment (backend)	Render
+Deployment (database)	MongoDB Atlas
+Source control	GitHub
+</div> <br/>
 Database Models
-
-User
-
-User
-├── name
-├── email
-├── password
-├── createdAt
-└── updatedAt
-
-The email field is unique.
-
-Passwords are stored as bcrypt hashes.
-
-Product
-
-Product
-├── title
-├── price
-├── description
-├── category
-├── stock
-├── image
-└── rating
-    ├── rate
-    └── count
-
-Cart
-
-Cart
-├── user
-└── items[]
-    ├── product
-    ├── quantity
-    └── price
-
-Each user has one unique cart.
-
-Wishlist
-
-Wishlist
-├── user
-└── products[]
-    ├── _id
-    ├── title
-    ├── price
-    ├── image
-    ├── category
-    └── description
-
-Order
-
-Order
-├── user
-├── products[]
-│   ├── productId
-│   ├── title
-│   ├── price
-│   └── quantity
-├── totalAmount
-├── createdAt
-└── updatedAt
-
+Model	Key Fields	Notes
+User	name, email (unique), password, createdAt, updatedAt	Passwords stored as bcrypt hashes
+Product	title, price, description, category, stock, image, rating.rate, rating.count	Backs the catalog and product detail views
+Cart	user, items[] → { product, quantity, price }	One cart per user
+Wishlist	user, products[] → { _id, title, price, image, category, description }	Stores a product snapshot, not just a reference
+Order	user, products[] → { productId, title, price, quantity }, totalAmount, createdAt, updatedAt	Snapshot of ordered items at time of purchase
+<br/>
 API Documentation
 
-Base production API:
+Base production API: https://storefront-commerce.onrender.com
 
-https://storefront-commerce.onrender.com
+Authentication
+Method	Endpoint	Auth	Description
+GET	/user/sign-in	No	Sign-in form route
+POST	/user/register	No	Register a new user
+GET	/user/login	No	Login form route
+POST	/user/login	No	Authenticate user, returns JWT
+GET	/user/me	Yes	Get current authenticated user
+Product
+Method	Endpoint	Auth	Description
+GET	/product/addProduct	No	Product creation form route
+POST	/product/addProduct	No	Create a product
+GET	/product/products	No	Get all products
+GET	/product/product/:id	No	Get a single product by ID
+Cart
+Method	Endpoint	Auth	Description
+GET	/cart	Yes	Get current user's cart
+POST	/cart/add	Yes	Add a product to the cart
+PUT	/cart/update	Yes	Update item quantity (must be ≥ 1)
+DELETE	/cart/remove/:productId	Yes	Remove a single product
+DELETE	/cart/clear	Yes	Clear the entire cart
+Wishlist
+Method	Endpoint	Auth	Description
+POST	/wishlist	Yes	Add a product to the wishlist
+GET	/wishlist	Yes	Get the wishlist
+DELETE	/wishlist/:id	Yes	Remove a wishlist item
+DELETE	/wishlist	Yes	Clear the wishlist
+Order
+Method	Endpoint	Auth	Description
+GET	/order/order	No	Order form route
+POST	/order/createOrder	Yes	Create an order from cart items
+GET	/order/orders	Yes	Get the current user's order history
 
-Authentication APIs
+Product creation note: POST /product/addProduct is currently unauthenticated — see Known Limitations.
 
-Method   Endpoint             Auth Description
+<br/>
+Getting the Project Running Locally
+Step 1 — Prerequisites
 
-GET      /user/sign-in        No Sign-in form route
-POST     /user/register       No Register user
-GET      /user/login          No Login form route
-POST     /user/login          No Authenticate user
-GET      /user/me            Yes Get current user
+Install Node.js, npm, Git, and either a MongoDB Atlas account or a local MongoDB instance.
 
-Product APIs
+Step 2 — Clone the Repository
+bash
+git clone https://github.com/DeepakChauhan33/Storefront-Commerce.git
+cd Storefront-Commerce
+Step 3 — Backend Setup
+bash
+cd Backend
+npm install
 
-Method   Endpoint                   Auth Description
+# create Backend/.env with:
+#   MONGO_URI=your_mongodb_connection_string
+#   JWT_SECRET=your_jwt_secret
+#   CLIENT_URL=http://localhost:5173
+#   PORT=8000
 
-GET      /product/addProduct        No Product form route
-POST     /product/addProduct        No Create product
-GET      /product/products          No Get all products
-GET      /product/product/:id       No Get product by ID
+npm run dev
 
-Cart APIs
+The API will be live on the configured port (default 8000).
 
-Method   Endpoint                      Auth Description
+Step 4 — Frontend Setup
+bash
+cd Client/my-project
+npm install
 
-GET      /cart                        Yes Get current user's cart
-POST     /cart/add                    Yes Add product to cart
-PUT      /cart/update                 Yes Update quantity
-DELETE   /cart/remove/:productId      Yes Remove product
-DELETE   /cart/clear                  Yes Clear cart
+# create Client/my-project/.env with:
+#   VITE_API_URL=http://localhost:8000
 
-Wishlist APIs
+npm run dev
 
-Method   Endpoint            Auth Description
+The app will be live at http://localhost:5173.
 
-POST     /wishlist          Yes Add product
-GET      /wishlist          Yes Get wishlist
-DELETE   /wishlist/:id      Yes Remove wishlist item
-DELETE   /wishlist          Yes Clear wishlist
-
-Order APIs
-
-Method   Endpoint                 Auth Description
-
-GET      /order/order             No Order form route
-POST     /order/createOrder      Yes Create order
-GET      /order/orders           Yes Get user's orders
-
+Step 5 — Verify
+Register a new account from the frontend.
+Add a product to the cart and to the wishlist.
+Complete checkout and confirm the order appears in order history.
+Step 6 — Deploy to Production
+Backend (Render) — root directory Backend; build command npm install; start command npm start; set MONGO_URI, JWT_SECRET, and CLIENT_URL (the deployed Vercel URL).
+Frontend (Vercel) — root directory Client/my-project; framework Vite; build command npm run build; output directory dist; set VITE_API_URL to the deployed Render URL, and redeploy after changing it, since Vite injects env vars at build time.
+<br/>
 Environment Variables
-
-Environment variables are intentionally excluded from Git.
-
-Backend
-
-Create:
-
-Backend/.env
-
-Example:
-
+Backend — Backend/.env
+env
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 CLIENT_URL=http://localhost:5173
 PORT=8000
 
-For production, CLIENT_URL should contain the deployed Vercel frontend
-URL:
+For production, CLIENT_URL should be the deployed Vercel frontend URL.
 
-CLIENT_URL=https://your-vercel-app.vercel.app
-
-Do not commit .env files.
-
-Frontend
-
-Create:
-
-Client/my-project/.env
-
-Example:
-
+Frontend — Client/my-project/.env
+env
 VITE_API_URL=http://localhost:8000
 
 For production:
 
+env
 VITE_API_URL=https://storefront-commerce.onrender.com
 
-Because Vite exposes VITE_* variables to the client bundle, never put
-private secrets such as database passwords or JWT signing secrets in
-frontend environment variables.
+Because Vite exposes every VITE_* variable to the client bundle, never place private secrets — database credentials, JWT signing secrets — in a frontend environment file.
 
-Local Development Setup
-
-Prerequisites
-
-Install:
-
-Node.js
-
-npm
-
-MongoDB Atlas account or a local MongoDB instance
-
-Git
-
-Clone the Repository
-
-git clone https://github.com/DeepakChauhan33/Storefront-Commerce.git
-
-cd Storefront-Commerce
-
-Backend Setup
-
-Navigate to the backend:
-
-cd Backend
-
-Install dependencies:
-
-npm install
-
-Create:
-
-.env
-
-Add:
-
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-CLIENT_URL=http://localhost:5173
-PORT=8000
-
-Start the development server:
-
-npm run dev
-
-Or run the production-style start command:
-
-npm start
-
-The backend will run locally on the configured port.
-
-Frontend Setup
-
-Open another terminal.
-
-Navigate to:
-
-cd Client/my-project
-
-Install dependencies:
-
-npm install
-
-Create:
-
-.env
-
-Add:
-
-VITE_API_URL=http://localhost:8000
-
-Start Vite:
-
-npm run dev
-
-The frontend will normally be available at:
-
-http://localhost:5173
-
-Running the Project
-
-You need two development processes.
-
-Terminal 1 --- Backend
-
-cd Backend
-npm run dev
-
-Terminal 2 --- Frontend
-
-cd Client/my-project
-npm run dev
-
-Then open the Vite development URL shown in the terminal.
-
-Testing
-
-The frontend contains a Vitest test setup with React Testing Library.
-
-Tests are located in:
-
-Client/my-project/src/__test__/
-
-Current test files include:
-
-form.test.jsx
-quantityBtn.test.js
-setup.js
-
-Run the test suite with:
-
-npm test
-
-The frontend also provides:
-
-npm run lint
-
-for ESLint checks.
-
-Build the production frontend with:
-
-npm run build
-
-Preview the production build with:
-
-npm run preview
-
-Production Deployment
-
-The repository intentionally contains both applications in one GitHub
-repository.
-
-Storefront-Commerce/
-├── Backend/
-└── Client/
-    └── my-project/
-
-They are deployed independently.
-
-Backend Deployment --- Render
-
-Create a Render Web Service connected to:
-
-DeepakChauhan33/Storefront-Commerce
-
-Use:
-
-Root Directory:
-Backend
-
-Build command:
-
-npm install
-
-Start command:
-
-npm start
-
-Required environment variables:
-
-MONGO_URI=your_production_mongodb_uri
-JWT_SECRET=your_production_jwt_secret
-CLIENT_URL=https://your-vercel-app.vercel.app
-
-The deployed backend is currently available at:
-
-https://storefront-commerce.onrender.com
-
-Frontend Deployment --- Vercel
-
-Create a Vercel project from the same GitHub repository.
-
-Set:
-
-Root Directory:
-Client/my-project
-
-Framework:
-
-Vite
-
-Install command:
-
-npm install
-
-Build command:
-
-npm run build
-
-Output directory:
-
-dist
-
-Add the production environment variable:
-
-VITE_API_URL
-
-Value:
-
-https://storefront-commerce.onrender.com
-
-After changing Vite environment variables, redeploy the frontend because
-the value is injected during the Vite build.
-
-CORS Configuration
-
-The backend uses the frontend URL from the environment:
-
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true
-  })
-);
-
-Local development:
-
-CLIENT_URL=http://localhost:5173
-
-Production:
-
-CLIENT_URL=https://your-vercel-app.vercel.app
-
-This allows the deployed React frontend to communicate with the deployed
-Express backend.
-
+<br/>
 Security Practices
-
-The project follows several basic security practices:
-
-Environment variables
-
-Sensitive configuration is kept outside the source code.
-
-.env
-
-files are excluded through .gitignore.
-
-Password hashing
-
-Passwords are hashed using:
-
-bcryptjs
-
-Plain-text passwords are not intentionally stored in the database.
-
-JWT authentication
-
-Protected resources require a valid JWT.
-
-User-specific resources
-
-Cart, wishlist, and order endpoints use the authenticated user's ID
-rather than accepting an arbitrary user ID from the client.
-
-CORS
-
-The backend restricts cross-origin requests to the configured frontend
-origin.
-
-Frontend secrets
-
-The frontend only uses the public API URL through:
-
-VITE_API_URL
-
-Private database credentials and JWT secrets remain on the backend.
-
+Safeguard	Description
+Password hashing	All passwords are hashed with bcryptjs before being stored; plain-text passwords are never persisted.
+JWT authentication	Every protected resource requires a valid, unexpired JWT.
+Per-user data isolation	Cart, wishlist, and order routes use req.user.userId from the verified token rather than a client-supplied ID.
+Restricted CORS	The backend allows only the configured CLIENT_URL origin, with credentials enabled.
+Environment variables	.env files are excluded via .gitignore; secrets never enter source control.
+Frontend secrets	The frontend only ever holds the public VITE_API_URL; database and JWT secrets stay backend-only.
+<br/>
 Common Deployment Considerations
+Consideration	Detail
+No localhost in production	Frontend requests must resolve through import.meta.env.VITE_API_URL, pointing at the deployed Render URL — never a hardcoded http://localhost:8000.
+Case-sensitive imports	Vercel builds on Linux, so an import like wishlistAPI.js must match the file's exact capitalization; this can silently work on Windows and fail in production.
+Never commit env files	.env, .env.local, and .env.production should never be committed — set production values directly in the Render/Vercel dashboards.
+<br/>
+Live Demo Links
+<div align="center">
 
-Localhost should not be used in production
+Live Demo Source Code
 
-Frontend API requests should use:
-
-https://storefront-commerce.onrender.com
-
-instead of:
-
-http://localhost:8000
-
-The frontend uses:
-
-import.meta.env.VITE_API_URL
-
-to support this separation.
-
-Case-sensitive imports
-
-Vercel builds on a Linux environment, where filenames are
-case-sensitive.
-
-For example:
-
-wishlistAPI.js
-
-must be imported using matching capitalization:
-
-import ... from "../Pages/Wishlist/wishlistAPI";
-
-rather than:
-
-import ... from "../Pages/Wishlist/wishlistApi";
-
-This may work on a case-insensitive local Windows filesystem but fail
-during production builds.
-
-Environment variables
-
-Never commit:
-
-.env
-.env.local
-.env.production
-
-The deployment platforms should receive production environment variables
-through their environment-variable configuration.
-
+</div>
+Link	URL
+Frontend	https://YOUR-VERCEL-APP.vercel.app (replace with your deployment URL)
+Backend API	https://storefront-commerce.onrender.com
+Products API	https://storefront-commerce.onrender.com/product/products
+Source Code	https://github.com/DeepakChauhan33/Storefront-Commerce
+<br/>
+Known Limitations
+No stock decrement on order — checkout validates available stock but does not reduce it after the order is created.
+Unauthenticated product creation — POST /product/addProduct is not currently protected by the auth middleware.
+Client-side search only — the search UI filters in the browser rather than querying the backend.
+No admin dashboard — there is no protected interface for managing products, stock, or orders.
+No payment integration — checkout creates an order record but does not process a real payment.
+No order status tracking — orders don't carry a status field (e.g. pending, shipped, delivered).
+<br/>
 Future Improvements
-
-The current project is functional, but several production-level
-improvements could be added.
-
-Inventory management
-
-The order flow currently validates stock but does not decrement
-inventory.
-
-Future implementation:
-
-Order Created
-      ↓
-Reduce Product Stock
-      ↓
-Save Order
-
-This should ideally be handled using safe database
-operations/transactions to avoid race conditions.
-
-Order status
-
-Add fields such as:
-
-pending
-confirmed
-processing
-shipped
-delivered
-cancelled
-
-Payment integration
-
-Add a real payment provider such as Stripe or Razorpay.
-
-Admin dashboard
-
-Create protected admin functionality for:
-
-Adding products
-
-Editing products
-
-Deleting products
-
-Managing stock
-
-Viewing orders
-
-Updating order status
-
-Managing users
-
-Product filtering
-
-Improve product discovery with:
-
-Price range
-
-Category
-
-Rating
-
-Availability
-
-Sorting
-
-Pagination
-
-Add server-side pagination for larger product collections.
-
-Search
-
-Move from client-side search toward backend search for larger datasets.
-
-Validation
-
-Add stronger request validation using a schema validation library.
-
-Error handling
-
-Create centralized Express error-handling middleware.
-
-API documentation
-
-Add Swagger/OpenAPI documentation.
-
-Automated testing
-
-Expand backend and frontend tests to cover:
-
-Authentication
-
-Product APIs
-
-Cart APIs
-
-Wishlist APIs
-
-Order APIs
-
-Protected routes
-
-Error cases
-
-Performance
-
-Potential improvements include:
-
-API response caching
-
-Image optimization
-
-Lazy loading
-
-Pagination
-
-Database indexes
-
-Code splitting
-
+Inventory management — decrement product stock on order creation using a transaction-safe operation to avoid race conditions.
+Order status — add a status field (pending → confirmed → processing → shipped → delivered → cancelled).
+Payment integration — connect a real provider such as Stripe or Razorpay.
+Admin dashboard — protected screens for adding/editing/deleting products, managing stock, and updating order status.
+Product discovery — filtering by price, category, rating, and availability, plus sorting and server-side pagination.
+Backend search — move product search from the client to the API for larger catalogs.
+Stronger validation — adopt a schema-validation library and centralized Express error-handling middleware.
+API documentation — add Swagger/OpenAPI docs.
+Expanded testing — cover authentication, product/cart/wishlist/order APIs, protected routes, and error cases.
+Performance — response caching, image optimization, lazy loading, and database indexes.
+<br/>
 Learning Outcomes
 
-This project demonstrates practical experience with:
+This project reflects hands-on experience with React, Vite, Tailwind CSS, React Router, Redux Toolkit, and RTK Query on the frontend; Node.js, Express, MongoDB, Mongoose, JWT authentication, password hashing, and middleware-based route protection on the backend; and the surrounding practices of REST API design, CRUD operations, environment-variable management, CORS, Git/GitHub workflows, and independent Vercel + Render deployment with production frontend–backend communication.
 
-React component development
-
-Vite-based frontend development
-
-Responsive UI development
-
-Tailwind CSS
-
-React Router
-
-Redux Toolkit
-
-RTK Query
-
-Axios
-
-REST API development
-
-Node.js
-
-Express.js
-
-MongoDB
-
-Mongoose
-
-JWT authentication
-
-Password hashing
-
-Middleware
-
-Protected routes
-
-CRUD operations
-
-Cart management
-
-Wishlist management
-
-Order management
-
-Environment variables
-
-CORS
-
-Git and GitHub
-
-Vercel deployment
-
-Render deployment
-
-Production frontend/backend communication
-
-Basic automated testing
-
-Git Workflow
-
-The project uses Git for source control.
-
-Typical workflow:
-
-git status
-
-git add .
-
-git commit -m "Describe your changes"
-
-git push
-
-The main branch is connected to the production GitHub repository.
-
-Production Repository
-
-GitHub:
-
-https://github.com/DeepakChauhan33/Storefront-Commerce
-
-Backend:
-
-https://storefront-commerce.onrender.com
-
-Products API:
-
-https://storefront-commerce.onrender.com/product/products
-
+<br/>
 Author
+	
+Name	Deepak Chauhan
+Role	Full Stack / MERN Developer
+Stack	React · Vite · Tailwind CSS · Redux Toolkit · RTK Query · Node.js · Express.js · MongoDB · Mongoose · JWT · Git · GitHub
+<br/>
+Project Status
+<div align="center">
 
-Deepak Chauhan
+This repository represents the current deployed state of Storefront-Commerce — a working, end-to-end MERN shopping application spanning authentication, product catalog, cart, wishlist, checkout, and order history, with the frontend and backend deployed independently.
 
-Full Stack / MERN Developer
-
-Technologies
-
-React
-Vite
-Tailwind CSS
-Redux Toolkit
-RTK Query
-Node.js
-Express.js
-MongoDB
-Mongoose
-JWT
-Git
-GitHub
-
-Project Summary
-
-Storefront-Commerce is a full-stack e-commerce application that
-demonstrates how a React frontend can communicate with a custom
-Express/MongoDB backend in a production deployment.
-
-The project covers the complete basic shopping lifecycle:
-
-Authentication
-      ↓
-Product Discovery
-      ↓
-Product Details
-      ↓
-Cart
-      ↓
-Wishlist
-      ↓
-Checkout
-      ↓
-Order History
-
-The application is maintained as a monorepo-style GitHub repository
-while the frontend and backend are deployed independently, providing a
-practical structure for full-stack development and deployment.
+<br/> <img src="https://img.shields.io/badge/lifecycle-browse--to--order-534AB7?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/auth-JWT%20%2B%20bcrypt-3ecf8e?style=for-the-badge&labelColor=1a1a1a" /> <img src="https://img.shields.io/badge/deploy-Vercel%20%2B%20Render-0F6E56?style=for-the-badge&labelColor=1a1a1a" /> </div>
