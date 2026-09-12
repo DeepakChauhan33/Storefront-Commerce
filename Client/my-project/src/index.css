@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+
+html{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+h2, h3 {
+  font-family: "Inter";
+}
+
+h1{
+  font-family: "poppins";
+}
+
+
+p{
+  font-family: "Inter", sans-serif;
+}
+
+
