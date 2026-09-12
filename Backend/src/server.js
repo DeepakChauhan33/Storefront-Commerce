@@ -83,7 +83,7 @@ const cartRoute = require("./routes/cartRoute.js");
 
 
 app.get('/', (req, res) => {
-  res.send("Welcome to the server");
+  res.send("Welcome to the Storefront Commerce server");
 })
 
 
