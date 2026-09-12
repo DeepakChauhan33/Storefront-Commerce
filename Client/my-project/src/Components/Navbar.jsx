@@ -20,7 +20,7 @@ import { motion } from "framer-motion";
 
 
 // Wishlist Service 
-import { useGetWishlistQuery } from "../Pages/Wishlist/wishlistApi";
+import { useGetWishlistQuery } from "../Pages/Wishlist/wishlistAPI";
 
 
 // Cart Service
